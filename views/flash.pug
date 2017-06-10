@@ -1,0 +1,6 @@
+.messages
+  each types in Object.keys(messages)
+    each message in messages[types]
+      div(class='alert alert-' + types role='alert')
+        span.sr-only
+        | #{message}

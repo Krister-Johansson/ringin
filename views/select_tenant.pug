@@ -1,0 +1,10 @@
+extends layout
+
+block content  
+  h1= title
+  div
+    p= message
+    ul
+      each tenant in tenants
+       li
+         a(href=tenant.url) #{tenant.name}

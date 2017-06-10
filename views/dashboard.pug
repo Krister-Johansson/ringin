@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  - var name = user.name ? user.name: user.email;
+  h2 Welcome #{name}!
+  div My Tenants:
+    each list in tenants
+      span(style="margin: 3px")
+      - var css = list.isActive ? 'color: orange; font-weight: bold;' : '';
+        a(href=list.url style=css) #{list.tenant.tenant} (#{list.tenant.role})
+  br
+  
+  a(href='/logout') Logout
