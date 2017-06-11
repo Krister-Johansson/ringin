@@ -6,6 +6,8 @@
 
 var app = require('../app');
 var http = require('http');
+var log4js = require('log4js');
+var logger = log4js.getLogger();
 
 /**
  * Get port from environment and store in Express.
@@ -54,6 +56,7 @@ function normalizePort(val) {
 
 function onError(error) {
   if (error.syscall !== 'listen') {
+    logger.fatal(error);
     throw error;
   }
 
@@ -64,14 +67,15 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      logger.fatal(bind + ' requires elevated privileges');
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      logger.fatal(bind + ' is already in use');
       process.exit(1);
       break;
     default:
+      logger.fatal(error);
       throw error;
   }
 }
@@ -85,5 +89,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  console.log('Listening on ' + bind);
+  logger.info('Listening on ' + bind);
 }

@@ -1,7 +1,13 @@
 var express = require('express');
+var log4js = require('log4js');
+
 var router = express.Router();
+var logger = log4js.getLogger();
+
 var libTenant = require('../lib/tenant');
+
 function buildTenants (req) {
+  logger.trace('buildTenants');
   return req.user.permissions.map(tenant => {
     return {
       name: tenant.tenant,
@@ -14,6 +20,8 @@ function buildTenants (req) {
 router.get('/choose', 
   libTenant.isAuthenticated(), 
   function(req, res, next) {
+    logger.trace('GET /choose');
+    
     res.render('select_tenant', { 
       user: req.user, 
       tenants: buildTenants(req),
@@ -26,6 +34,8 @@ router.get('/choose',
 router.get('/unauthorized', 
   libTenant.isAuthenticated(), 
   function(req, res, next) {
+    logger.trace('GET /unauthorized');
+
     res.render('select_tenant', { 
       user: req.user, 
       tenants: buildTenants(req),

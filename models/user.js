@@ -7,17 +7,13 @@ var ObjectId = Schema.ObjectId;
 var SALT_WORK_FACTOR = 10;
 
 var userSchema  = new Schema({
-    name: String,
+    company: { type: String, required: true, unique: true },
+    tenant: { type: String, required: true, unique: true },
+    sid: { type: String, required: true, unique: true },
+    firstName: String,
+    lasttName: String,
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    // locations: [{
-    //     _id: ObjectId,
-    //     name: { type: String, required: true },
-    //     tenant: { type: String, required: true },
-    //     phonenumber: String,
-    //     created_at: Date,
-    //     updated_at: Date
-    // }],
     permissions: [{
         _id: ObjectId,
         tenant: String,
@@ -38,5 +34,4 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-// create the model for users and expose it to our app
 module.exports = mongoose.model('User', userSchema);

@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    .container
+        h1 Create group
+        p.lead Add a new phonenumber to your group
+        != messages('flash', locals)
+        br
+        form(role='form', action='/dashboard/group/create',method='post', style='max-width: 300px;')
+            .form-group
+                input.form-control(type='text', name='name', placeholder='Enter Name')
+            .form-group
+                select.form-control(name='number', placeholder='Select a phonenumer')
+                    each number in numbers
+                        option(value=number.number) #{number.friendly}
+                    option(value='+15005550000') This phone number is unavailable.
+                    option(value='+15005550001') This phone number is invalid.
+                    option(value='+15005550006') This phone number is valid and available.
+            button.btn.btn-default(type='submit') Create
+            a(href='/')
+                button.btn.btn-primary(type='button') Cancel

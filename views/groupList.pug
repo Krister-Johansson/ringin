@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h2 Groups
+  a.btn.btn-info(href='group/create', role='button') Create group
+  != messages('flash', locals)
+  .row
+    .col-md-12
+        table.table
+            thad
+                tr
+                    th Name
+                    th Phonenumber
+                    th Status
+                    th Action
+            tbody
+                each group in groups
+                    tr
+                        td #{group.name}
+                        td #{group.phoneNumber}
+                        td
+                            span(class='label label-success') Active
+                        td
+                            .btn-group
+                                button.btn.btn-sm.btn-primary(type='button')
+                                    span.glyphicon.glyphicon-cog(aria-hidden='true')
+                                button.btn.btn-sm.btn-danger(type='button')
+                                    span.glyphicon.glyphicon-trash(aria-hidden='true')
